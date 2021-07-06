@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const flash = require('connect-flash');//일회성 메세지를 브라우저에 노출
+const flash = require('connect-flash');
 const session = require('express-session');
 
 require('dotenv').config();
