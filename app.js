@@ -22,6 +22,13 @@ const connect = require('./app/database');
 //view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'html');
+nunjucks.configure('views', {
+    express: app,
+    watch: true,
+});
+connect();
+
+
 
 //middlewares setup
 app.use(express.static('public'));
