@@ -6,14 +6,19 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
-const routes = require('./app/routes');
 
 
 require('dotenv').config();
-const { PORT, MONGO_URI } = process.env;
+const { PORT} = process.env;
 const mongoose = require('mongoose');
 const passport = require('passport');
 const { initialize } = require('passport');
+
+const routes = require('./app/routes');
+const webSocket = require('./app/socket');
+const connect = require('./app/database');
+
+
 //view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'html');
@@ -23,7 +28,15 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use(session);
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+    },
+}));
 app.use(passport(initialize()));
 app.use(passport.session());
 app.use(flash());
