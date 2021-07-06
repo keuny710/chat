@@ -16,7 +16,7 @@ const passport = require('passport');
 const { initialize } = require('passport');
 //view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 
 //middlewares setup
 app.use(express.static('public'));
@@ -27,3 +27,10 @@ app.use(session);
 app.use(passport(initialize()));
 app.use(passport.session());
 app.use(flash());
+
+app.use('/', routes);
+
+app.use((req, res, next)=>{
+    res.status(404).sendFile(process.cwd()+'/app/views/404.html');
+});
+
