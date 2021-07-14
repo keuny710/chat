@@ -6,7 +6,8 @@ const SALT_WORK_FACTOR = 10;
 
 const UserSchema = new Mongoose.Schema({
     username: {type: String, required: true},
-    password: {type: Stringg, required: true},
+    password: {type: Stringg, default: null},
+    socialId: {type: String, default: null},
     picture: {type: String, default: "/img/user.jpg"},
 });
 
