@@ -37,9 +37,11 @@ app.use(express.json());
 //         secure: false,
 //     },
 // }));
+app.use(session);
 app.use(passport(initialize()));
 app.use(passport.session());
 app.use(flash());
+
 
 app.use('/', routes);
 
